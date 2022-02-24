@@ -1,1 +1,1 @@
-
+Class Color:
