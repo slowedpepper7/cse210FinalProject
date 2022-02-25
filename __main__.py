@@ -1,5 +1,6 @@
 import os
 import random
+import raylib
 
 from game.casting.actor import Actor
 from game.casting.artifact import Artifact
