@@ -1,8 +1,8 @@
 import pyray
-from game.shared.point import Point
+from point import Point
 
 
-Class Keyboard_service:
+class KeyboardService:
 
     """Detects player input. 
     

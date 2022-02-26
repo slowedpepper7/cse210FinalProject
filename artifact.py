@@ -1,4 +1,4 @@
-from game.casting.actor import Actor
+from actor import Actor
 
 
 class Artifact(Actor):
