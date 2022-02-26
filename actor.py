@@ -1,7 +1,7 @@
 from game.shared.color import Color
 from game.shared.point import Point
 
-Class Actor:
+class Actor:
   
     """A visible, moveable thing that participates in the game. 
     
