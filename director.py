@@ -1,5 +1,5 @@
-from game.casting.artifact import Artifact
-from game.shared.point import Point
+from artifact import Artifact
+from point import Point
 points = 0
 
 
