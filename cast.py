@@ -1,3 +1,19 @@
+import random
+COLS = 60
+ROWS = 40
+
+from actor import Actor
+from artifact import Artifact
+
+from director import Director
+
+from keyboard_service import KeyboardService
+from video_service import VideoService
+
+from color import Color
+from point import Point
+CELL_SIZE = 15
+FONT_SIZE = 15
 class Cast:
     """A collection of actors.
 
@@ -73,4 +89,28 @@ class Cast:
         """
         if group in self._actors:
             self._actors[group].remove(actor)
-  
+        
+        text = random.randint(0,1)
+        if text == 0:
+            text = 'O'
+        else:
+            text = '*'
+        
+
+        x = random.randint(1, COLS - 1)
+        y = random.randint(1, 3)
+        position = Point(x, y)
+        position = position.scale(CELL_SIZE)
+
+        r = random.randint(0, 255)
+        g = random.randint(0, 255)
+        b = random.randint(0, 255)
+        color = Color(r, g, b)
+        
+        artifact = Artifact()
+        artifact.set_text(text)
+        artifact.set_font_size(FONT_SIZE)
+        artifact.set_color(color)
+        artifact.set_position(position)
+        artifact.set_message(text)
+        self.add_actor("artifacts", artifact)
