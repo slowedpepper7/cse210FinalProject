@@ -1,17 +1,17 @@
 import os
 import random
 
-from game.casting.actor import Actor
-from game.casting.artifact import Artifact
-from game.casting.cast import Cast
+from actor import Actor
+from artifact import Artifact
+from cast import Cast
 
-from game.directing.director import Director
+from director import Director
 
-from game.services.keyboard_service import KeyboardService
-from game.services.video_service import VideoService
+from keyboard_service import KeyboardService
+from video_service import VideoService
 
-from game.shared.color import Color
-from game.shared.point import Point
+from color import Color
+from point import Point
 
 
 FRAME_RATE = 12
@@ -21,7 +21,7 @@ CELL_SIZE = 15
 FONT_SIZE = 15
 COLS = 60
 ROWS = 40
-CAPTION = "Robot Finds Kitten"
+CAPTION = "Robot Vs Rocks"
 DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
 WHITE = Color(255, 255, 255)
 DEFAULT_ARTIFACTS = 70
