@@ -3,7 +3,6 @@ from point import Point
 
 
 class KeyboardService:
-
     """Detects player input. 
     
     The responsibility of a KeyboardService is to detect player key presses and translate them into 
@@ -36,6 +35,12 @@ class KeyboardService:
         if pyray.is_key_down(pyray.KEY_RIGHT):
             dx = 1
         
+        # if pyray.is_key_down(pyray.KEY_UP):
+        #     dy = -1
+        
+        # if pyray.is_key_down(pyray.KEY_DOWN):
+        #     dy = 1
+
         direction = Point(dx, dy)
         direction = direction.scale(self._cell_size)
         
