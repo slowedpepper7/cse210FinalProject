@@ -13,6 +13,7 @@ from video_service import VideoService
 from color import Color
 from point import Point
 
+
 FRAME_RATE = 12
 MAX_X = 900
 MAX_Y = 600
@@ -20,13 +21,19 @@ CELL_SIZE = 15
 FONT_SIZE = 15
 COLS = 60
 ROWS = 40
+<<<<<<< HEAD
 CAPTION = "Greed"
 #DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/messages.txt"
+=======
+CAPTION = "Robot Vs Rocks"
+DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
+>>>>>>> b0efc486ccc74d74332b46901d1102ea5c4fe9f8
 WHITE = Color(255, 255, 255)
-DEFAULT_ARTIFACTS = 40
+DEFAULT_ARTIFACTS = 70
+
 
 def main():
-
+    
     # create the cast
     cast = Cast()
     
@@ -40,7 +47,7 @@ def main():
     
     # create the robot
     x = int(MAX_X / 2)
-    y = int(MAX_Y - 15)#starts the main character at the bottom
+    y = int(MAX_Y - 15)
     position = Point(x, y)
 
     robot = Actor()
@@ -62,9 +69,18 @@ def main():
     #    messages = data.splitlines()
 
     for n in range(DEFAULT_ARTIFACTS):
+<<<<<<< HEAD
         starsim = "*"
         #text = chr(random.randint(33, 126))
         #message = messages[n]
+=======
+        text = random.randint(0,1)
+        if text == 0:
+            text = 'O'
+        else:
+            text = '*'
+        
+>>>>>>> b0efc486ccc74d74332b46901d1102ea5c4fe9f8
 
         x = random.randint(1, COLS - 1)
         y = random.randint(1, ROWS - 1)
@@ -111,6 +127,16 @@ def main():
         #Actor.get_velocity(10)
         #rock.set_position(Point(x, y))
         
+<<<<<<< HEAD
+=======
+        artifact = Artifact()
+        artifact.set_text(text)
+        artifact.set_font_size(FONT_SIZE)
+        artifact.set_color(color)
+        artifact.set_position(position)
+        artifact.set_message(text)
+        cast.add_actor("artifacts", artifact)
+>>>>>>> b0efc486ccc74d74332b46901d1102ea5c4fe9f8
     
     # start the game
     keyboard_service = KeyboardService(CELL_SIZE)
