@@ -1,17 +1,17 @@
 import os
 import random
 
-from game.casting.actor import Actor
-from game.casting.artifact import Artifact
-from game.casting.cast import Cast
+from actor import Actor
+from artifact import Artifact
+from cast import Cast
 
-from game.directing.director import Director
+from director import Director
 
-from game.services.keyboard_service import KeyboardService
-from game.services.video_service import VideoService
+from keyboard_service import KeyboardService
+from video_service import VideoService
 
-from game.shared.color import Color
-from game.shared.point import Point
+from color import Color
+from point import Point
 
 
 FRAME_RATE = 12
@@ -51,13 +51,13 @@ def main():
     robot.set_position(position)
     cast.add_actor("robots", robot)
     # create the artifacts
-    with open(DATA_PATH) as file:
-        data = file.read()
-        messages = data.splitlines()
+    # with open(DATA_PATH) as file:
+    #     data = file.read()
+    #     messages = data.splitlines()
 
     for n in range(10):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = n
         y = 35
@@ -74,12 +74,12 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
     
     for n in range(36):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = 9
         y = n
@@ -96,12 +96,12 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
 
     for n in range(36):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = 25
         y = n
@@ -118,11 +118,11 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
     for n in range(36):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = 40
         y = n + 5
@@ -139,12 +139,12 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
     
     for n in range(36):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = 40 + n
         y = 5
@@ -186,12 +186,12 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
     
         for n in range(36):
             text = "O"
-            message = messages[n]
+            # message = messages[n]
 
             x = 50
             y = n
@@ -208,11 +208,11 @@ def main():
             artifact.set_font_size(FONT_SIZE)
             artifact.set_color(color)
             artifact.set_position(position)
-            artifact.set_message(message)
+            # artifact.set_message(message)
             cast.add_actor("artifacts", artifact)
     for n in range(40):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = random.randint(15, 24)
         y = n + 6
@@ -229,12 +229,12 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
     
     for n in range(15):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = n
         y = 38
@@ -251,12 +251,12 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
 
     for n in range(33):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = 14
         y = n + 5
@@ -273,13 +273,13 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("artifacts", artifact)
     
 #Coding for the obstacles that move back and forth
     for n in range(8):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = 10
         y = 5 + (n * 4)
@@ -296,12 +296,12 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("obstacles", artifact)
     
     for n in range(8):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = 26
         y = 5 + (n * 4)
@@ -318,12 +318,12 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("obstacles", artifact)
 
     for n in range(8):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = 29
         y = 7 + (n * 4)
@@ -340,12 +340,12 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("obstacles", artifact)
     
     for n in range(8):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = 32
         y = 10 + (n * 4)
@@ -362,12 +362,12 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("obstacles", artifact)
 
     for n in range(8):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = 35
         y = 7 + (n * 4)
@@ -384,12 +384,12 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("obstacles", artifact)
 
     for n in range(31):
         text = "O"
-        message = messages[n]
+        # message = messages[n]
 
         x = 46
         y = n + 5
@@ -406,7 +406,7 @@ def main():
         artifact.set_font_size(FONT_SIZE)
         artifact.set_color(color)
         artifact.set_position(position)
-        artifact.set_message(message)
+        # artifact.set_message(message)
         cast.add_actor("obstacles", artifact)
     
     # start the game
