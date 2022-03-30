@@ -1,7 +1,7 @@
-from game.casting.artifact import Artifact
-from game.shared.point import Point
+from artifact import Artifact
+from point import Point
 global v
-v = 5
+v = 3
 class Director:
     """A person who directs the game. 
     
