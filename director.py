@@ -1,9 +1,7 @@
-from artifact import Artifact
-from point import Point
-points = 0
-
-
-
+from game.casting.artifact import Artifact
+from game.shared.point import Point
+global v
+v = 5
 class Director:
     """A person who directs the game. 
     
@@ -45,13 +43,21 @@ class Director:
         """
         robot = cast.get_first_actor("robots")
         velocity = self._keyboard_service.get_direction()
-        robot.set_velocity(velocity)   
-        artifacts = cast.get_actors('artifacts')  
-
-       
-        artifact_velocity = Point(0, 5)
-        for artifact in artifacts:
-            artifact.set_velocity(artifact_velocity)
+        robot.set_velocity(velocity)        
+        obstacles = cast.get_actors('obstacles')  
+        artifacts = cast.get_actors('artifacts')
+        first = cast.get_first_actor('obstacles')
+        global v
+        # obstacle_velocity = Point(v, 0)
+        # for artifact in artifacts:
+        #     if first.get_position().equals(artifact.get_position()):
+        #         v = v * -1
+        #       
+        #         obstacle_velocity = Point(v, 0)
+        #         for obstacle in obstacles:
+        #             obstacle.set_velocity(obstacle_velocity)
+        # for obstacle in obstacles:
+        #     obstacle.set_velocity(obstacle_velocity)
 
     def _do_updates(self, cast):
         """Updates the robot's position and resolves any collisions with artifacts.
@@ -59,37 +65,35 @@ class Director:
         Args:
             cast (Cast): The cast of actors.
         """
+        global v
         banner = cast.get_first_actor("banners")
         robot = cast.get_first_actor("robots")
         artifacts = cast.get_actors("artifacts")
-
+        obstacles = cast.get_actors("obstacles")
+        first = cast.get_first_actor('obstacles')
         banner.set_text("")
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
-        for artifact in artifacts:
-            artifact.move_next(max_x, max_y) 
+
+        for obstacle in obstacles:
+            obstacle.move_next(max_x, max_y)
         
-        # message = (f'You have {points} points')
         for artifact in artifacts:
-            if robot.get_position().equals(artifact.get_position()): 
-                global points
-
-                score = artifact.get_message()
-                if score == 'O':
-                    points -= 4
-                if score == '*':
-                    points += 4
-
-                message = (f'You have {points} points')
-                banner.set_text(message)
-                cast.remove_actor('artifacts', artifact)
-            else:
-                message = (f'You have {points} points')
-                banner.set_text(message)
-        # banner.set_text(message)
-        # message = (f'You have {points} points')
-        # banner.set_text(message)
+            if robot.get_position().equals(artifact.get_position()):
+                print('touching')   
+        
+        for artifact in artifacts:
+                if first.get_position().equals(artifact.get_position()):
+                    v = v * -1
+                    obstacle_velocity = Point(v, 0)
+                    for obstacle in obstacles:
+                        obstacle.set_velocity(obstacle_velocity)
+                else: 
+                    obstacle_velocity = Point(v, 0)
+                    for obstacle in obstacles:
+                        obstacle.set_velocity(obstacle_velocity)
+        
         
     def _do_outputs(self, cast):
         """Draws the actors on the screen.
