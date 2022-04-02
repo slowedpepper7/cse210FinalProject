@@ -90,7 +90,6 @@ class Director:
         for artifact in artifacts:
                 if first.get_position().equals(artifact.get_position()):
                     v = v * -1
-                    print(f'{v}')
                     obstacle_velocity = Point(v, 0)
                     for obstacle in obstacles:
                         obstacle.set_velocity(obstacle_velocity)
