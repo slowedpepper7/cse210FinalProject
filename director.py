@@ -1,6 +1,20 @@
 from artifact import Artifact
 from point import Point
+from color import Color
+import os
+import random
 global v
+FRAME_RATE = 12
+MAX_X = 900
+MAX_Y = 600
+CELL_SIZE = 15
+FONT_SIZE = 15
+COLS = 60
+ROWS = 40
+CAPTION = "Robot Finds Kitten"
+DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
+WHITE = Color(255, 255, 255)
+DEFAULT_ARTIFACTS = 60
 v = 5
 class Director:
     """A person who directs the game. 
@@ -71,25 +85,34 @@ class Director:
         artifacts = cast.get_actors("artifacts")
         obstacles = cast.get_actors("obstacles")
         first = cast.get_first_actor('obstacles')
+        flags = cast.get_actors("flag")
         banner.set_text("")
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
+        game_over = False
+        win = 1
 
         for obstacle in obstacles:
             obstacle.move_next(max_x, max_y)
         
+        for flag in flags:
+            if robot.get_position().equals(flag.get_position()):
+                game_over = True
+                win = 2
+        
         for obstacle in obstacles:
             if robot.get_position().equals(obstacle.get_position()):
-                print('Touching!')
+                game_over = True
         
         for artifact in artifacts:
             if robot.get_position().equals(artifact.get_position()):
-                print('touching')   
+                game_over = True  
         
         for artifact in artifacts:
                 if first.get_position().equals(artifact.get_position()):
                     v = v * -1
+                    
                     obstacle_velocity = Point(v, 0)
                     for obstacle in obstacles:
                         obstacle.set_velocity(obstacle_velocity)
@@ -97,6 +120,60 @@ class Director:
                     obstacle_velocity = Point(v, 0)
                     for obstacle in obstacles:
                         obstacle.set_velocity(obstacle_velocity)
+           
+        if game_over == True:
+            robot = cast.get_first_actor("robots")
+            artifacts = cast.get_actors("artifacts")
+            obstacles = cast.get_actors("obstacles")
+            first = cast.get_first_actor('obstacles')
+            flags = cast.get_actors("flag")
+            banner = cast.get_first_actor("banners")
+            
+            x = 20
+            y = 20
+            position = Point(x, y)
+            if win == 1:
+                for n in range(20):
+                        text = "GAME OVER, YOU LOSE"
+                        x = 20
+                        y = 10 + (n*3)
+                        position = Point(x, y)
+                        position = position.scale(CELL_SIZE)
+
+                        r = 255
+                        g = 255
+                        b = 255
+                        color = Color(r, g, b)
+
+                        artifact = Artifact()
+                        artifact.set_text(text)
+                        artifact.set_font_size(FONT_SIZE)
+                        artifact.set_color(color)
+                        artifact.set_position(position)
+                        # artifact.set_message(message)
+                        cast.add_actor("artifacts", artifact)
+            else: 
+                for n in range(100):
+                    text = "CONGRADULATIONS YOU WIN!"
+
+                    x = 20
+                    y = 10 + (n * 3)
+                    position = Point(x, y)
+                    position = position.scale(CELL_SIZE)
+
+                    r = random.randint(0, 255)
+                    g = random.randint(0, 255)
+                    b = random.randint(0, 255)
+                    color = Color(r, g, b)
+
+                    artifact = Artifact()
+                    artifact.set_text(text)
+                    artifact.set_font_size(FONT_SIZE)
+                    artifact.set_color(color)
+                    artifact.set_position(position)
+                    # artifact.set_message(message)
+                    cast.add_actor("artifacts", artifact)
+            
         
         
     def _do_outputs(self, cast):
