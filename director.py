@@ -80,7 +80,7 @@ class Director:
             obstacle.move_next(max_x, max_y)
         
         for obstacle in obstacles:
-            if robot.get_position().equals(artifact.get_position()):
+            if robot.get_position().equals(obstacle.get_position()):
                 print('Touching!')
         
         for artifact in artifacts:
