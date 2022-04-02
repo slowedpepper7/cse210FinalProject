@@ -1,7 +1,7 @@
-from artifact import Artifact
-from point import Point
+from game.casting.artifact import Artifact
+from game.shared.point import Point
 global v
-v = 3
+v = 5
 class Director:
     """A person who directs the game. 
     
@@ -52,7 +52,7 @@ class Director:
         # for artifact in artifacts:
         #     if first.get_position().equals(artifact.get_position()):
         #         v = v * -1
-        #       
+        #         print(f'{v}')
         #         obstacle_velocity = Point(v, 0)
         #         for obstacle in obstacles:
         #             obstacle.set_velocity(obstacle_velocity)
@@ -79,6 +79,10 @@ class Director:
         for obstacle in obstacles:
             obstacle.move_next(max_x, max_y)
         
+        for obstacle in obstacles:
+            if robot.get_position().equals(artifact.get_position()):
+                print('Touching!')
+        
         for artifact in artifacts:
             if robot.get_position().equals(artifact.get_position()):
                 print('touching')   
@@ -86,6 +90,7 @@ class Director:
         for artifact in artifacts:
                 if first.get_position().equals(artifact.get_position()):
                     v = v * -1
+                    print(f'{v}')
                     obstacle_velocity = Point(v, 0)
                     for obstacle in obstacles:
                         obstacle.set_velocity(obstacle_velocity)
