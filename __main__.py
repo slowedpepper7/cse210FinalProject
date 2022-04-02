@@ -42,7 +42,7 @@ def main():
     # create the robot
     x = int(MAX_X / 2)
     y = int(MAX_Y / 2)
-    position = Point(10, 550)
+    position = Point(15, 555)
 
     robot = Actor()
     robot.set_text("#")
