@@ -16,6 +16,8 @@ DATA_PATH = os.path.dirname(os.path.abspath(__file__)) + "/data/messages.txt"
 WHITE = Color(255, 255, 255)
 DEFAULT_ARTIFACTS = 60
 v = 5
+global game_over
+game_over = False
 class Director:
     """A person who directs the game. 
     
@@ -55,12 +57,17 @@ class Director:
         Args:
             cast (Cast): The cast of actors.
         """
-        robot = cast.get_first_actor("robots")
-        velocity = self._keyboard_service.get_direction()
-        robot.set_velocity(velocity)        
-        obstacles = cast.get_actors('obstacles')  
-        artifacts = cast.get_actors('artifacts')
-        first = cast.get_first_actor('obstacles')
+        global game_over
+        if game_over != True:
+            robot = cast.get_first_actor("robots")
+            velocity = self._keyboard_service.get_direction()
+            robot.set_velocity(velocity)        
+            obstacles = cast.get_actors('obstacles')  
+            artifacts = cast.get_actors('artifacts')
+            first = cast.get_first_actor('obstacles')
+        else:
+            robot = cast.get_first_actor("robots")
+            robot.set_velocity(Point(0, 0))
         global v
         # obstacle_velocity = Point(v, 0)
         # for artifact in artifacts:
@@ -80,6 +87,7 @@ class Director:
             cast (Cast): The cast of actors.
         """
         global v
+        global game_over
         banner = cast.get_first_actor("banners")
         robot = cast.get_first_actor("robots")
         artifacts = cast.get_actors("artifacts")
@@ -90,7 +98,6 @@ class Director:
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
-        game_over = False
         win = 1
 
         for obstacle in obstacles:
@@ -108,18 +115,21 @@ class Director:
         for artifact in artifacts:
             if robot.get_position().equals(artifact.get_position()):
                 game_over = True  
-        
-        for artifact in artifacts:
-                if first.get_position().equals(artifact.get_position()):
-                    v = v * -1
-                    
-                    obstacle_velocity = Point(v, 0)
-                    for obstacle in obstacles:
-                        obstacle.set_velocity(obstacle_velocity)
-                else: 
-                    obstacle_velocity = Point(v, 0)
-                    for obstacle in obstacles:
-                        obstacle.set_velocity(obstacle_velocity)
+        if game_over == False:
+            for artifact in artifacts:
+                    if first.get_position().equals(artifact.get_position()):
+                        v = v * -1
+
+                        obstacle_velocity = Point(v, 0)
+                        for obstacle in obstacles:
+                            obstacle.set_velocity(obstacle_velocity)
+                    else: 
+                        obstacle_velocity = Point(v, 0)
+                        for obstacle in obstacles:
+                            obstacle.set_velocity(obstacle_velocity)
+        else:
+            for obstacle in obstacles:
+                obstacle.set_velocity(Point(0, 0))
            
         if game_over == True:
             robot = cast.get_first_actor("robots")
@@ -133,46 +143,39 @@ class Director:
             y = 20
             position = Point(x, y)
             if win == 1:
-                for n in range(20):
-                        text = "GAME OVER, YOU LOSE"
-                        x = 20
-                        y = 10 + (n*3)
-                        position = Point(x, y)
-                        position = position.scale(CELL_SIZE)
-
-                        r = 255
-                        g = 255
-                        b = 255
-                        color = Color(r, g, b)
-
-                        artifact = Artifact()
-                        artifact.set_text(text)
-                        artifact.set_font_size(FONT_SIZE)
-                        artifact.set_color(color)
-                        artifact.set_position(position)
-                        # artifact.set_message(message)
-                        cast.add_actor("artifacts", artifact)
-            else: 
-                for n in range(100):
-                    text = "CONGRADULATIONS YOU WIN!"
-
-                    x = 20
-                    y = 10 + (n * 3)
+                    text = "GAME OVER, YOU LOSE!"
+                    x = 8
+                    y = 20
                     position = Point(x, y)
                     position = position.scale(CELL_SIZE)
-
-                    r = random.randint(0, 255)
-                    g = random.randint(0, 255)
-                    b = random.randint(0, 255)
+                    r = 255
+                    g = 255
+                    b = 255
                     color = Color(r, g, b)
-
                     artifact = Artifact()
                     artifact.set_text(text)
-                    artifact.set_font_size(FONT_SIZE)
+                    artifact.set_font_size(60)
                     artifact.set_color(color)
                     artifact.set_position(position)
                     # artifact.set_message(message)
                     cast.add_actor("artifacts", artifact)
+            else: 
+                text = "CONGRADULATIONS YOU WIN!"
+                x = 8
+                y = 20
+                position = Point(x, y)
+                position = position.scale(CELL_SIZE)
+                r = 255
+                g = 15
+                b = 15
+                color = Color(r, g, b)
+                artifact = Artifact()
+                artifact.set_text(text)
+                artifact.set_font_size(40)
+                artifact.set_color(color)
+                artifact.set_position(position)
+                # artifact.set_message(message)
+                cast.add_actor("artifacts", artifact)
             
         
         
@@ -186,3 +189,6 @@ class Director:
         actors = cast.get_all_actors()
         self._video_service.draw_actors(actors)
         self._video_service.flush_buffer()
+
+    def game_over(self):
+        return self.game_over
