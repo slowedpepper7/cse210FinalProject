@@ -12,6 +12,7 @@ from video_service import VideoService
 
 from color import Color
 from point import Point
+from director import Director
 
 
 FRAME_RATE = 12
@@ -38,6 +39,7 @@ def main():
     banner.set_color(WHITE)
     banner.set_position(Point(CELL_SIZE, 0))
     cast.add_actor("banners", banner)
+    
     
     # create the robot
     x = int(MAX_X / 2)
